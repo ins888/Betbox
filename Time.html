@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="time.css">
+    <title>Timer</title>
+</head>
+<body>
+    <div class="main-container center">
+        <div class="circle-container center">
+            <div class="semicircle"></div>
+            <div class="semicircle"></div>
+            <div class="semicircle"></div>
+            <div class="outermost-circle"></div>
+        </div>
+
+        <div class="timer-container center">
+            <div class="time center">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const semicircle = document.querySelectorAll('.semicircle');
+        const time = document.querySelector('.time');
+        const sec = 15 * 1000;
+
+        const seconds = sec;
+        const startTime = Date.now();
+        const futuretime = startTime + seconds;
+
+        const timeLoop = setInterval(countdownTimer);
+        countdownTimer();
+
+        function countdownTimer(){
+            const currentTime = Date.now();
+            const remainTime = futuretime - currentTime;
+            const angle = (remainTime / seconds) * 360;
+
+            if(angle > 180){
+                semicircle[2].style.display = 'none';
+                semicircle[0].style.transform = 'rotate(180deg)';
+                semicircle[1].style.transform = `rotate(${angle}deg)`;
+            } else {
+                semicircle[2].style.display = 'block';
+                semicircle[0].style.transform = `rotate(${angle}deg)`;
+                semicircle[1].style.transform = `rotate(${angle}deg)`;
+            }
+
+            if(remainTime <= 6000){
+                semicircle[1].style.backgroundColor = 'red';
+                semicircle[0].style.backgroundColor = 'red';
+                time.style.color = 'red';
+            }
+
+            const secs = Math.floor((remainTime / 1000) % 60);
+            time.innerHTML = `<div>${secs}</div>`;
+
+            if(remainTime < 1){
+                clearInterval(timeLoop);
+                semicircle[0].style.display = 'none';
+                semicircle[1].style.display = 'none';
+                semicircle[2].style.display = 'none';
+                
+
+                time.innerHTML = `<div>Time UP!</div>`;
+                time.style.color = 'lightgray';
+            }
+            // timer
+            
+        }
+    </script>
+</body>
+</html>

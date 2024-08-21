@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="game.css">
+
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <title>BETBOX</title>
+</head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
+
+  body {
+    font-family: 'Chakra Petch', sans-serif;
+    background: linear-gradient(-45deg, #db3f0f, #db1360, #14a2d6, #15e2b2);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+
+  .gradient-cir {
+    fill: url(#circle-gradient) #fff;
+  }
+
+  .gradient-cir2 {
+    fill: url(#circle-gradient2) #fff;
+  }
+
+  .gradient-cir3 {
+    fill: url(#circle-gradient3) #fff;
+  }
+
+  .gradient-x {
+    fill: url(#x-gradient) #fff;
+  }
+
+  .gradient-x2 {
+    fill: url(#x-gradient2) #fff;
+  }
+
+  .gradient-x3 {
+    fill: url(#x-gradient3) #fff;
+  }
+</style>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 33%; top: 20%">
+    <defs>
+      <linearGradient id="circle-gradient" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#06f1b6" />
+        <stop offset="30%" stop-color="#06f1b6" />
+        <stop offset="100%" stop-color="#ffdf86" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 60%; top: 0%">
+    <defs>
+      <linearGradient id="circle-gradient2" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#FEBE35" />
+        <stop offset="30%" stop-color="#FEBE35" />
+        <stop offset="100%" stop-color="#FE3535" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir2" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 81%; top: 64%">
+    <defs>
+      <linearGradient id="circle-gradient3" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#CCCCFF" />
+        <stop offset="30%" stop-color="#CCCCFF" />
+        <stop offset="100%" stop-color="#9FE2BF" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir3" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor"
+    class="bi bi-circle -rotate-3 motion-safe:animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: 62%; top: 50%">
+    <defs>
+      <linearGradient id="x-gradient" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#f106b6" />
+        <stop offset="30%" stop-color="#f106b6" />
+        <stop offset="100%" stop-color="#86c4ff" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="currentColor"
+    class="bi bi-circle rotate-12 animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: 32%; top: 70%">
+    <defs>
+      <linearGradient id="x-gradient2" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#F0FF00" />
+        <stop offset="30%" stop-color="#F0FF00" />
+        <stop offset="100%" stop-color="#35FEEC" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x2"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="currentColor"
+    class="bi bi-circle -rotate-12 animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: -2%; top: 15%">
+    <defs>
+      <linearGradient id="x-gradient3" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#DE3163" />
+        <stop offset="30%" stop-color="#DE3163" />
+        <stop offset="100%" stop-color="#FF7F50" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x3"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <nav class="navbar sticky-top text-gray-900 uppercase backdrop-blur-xl bg-white/60 ...">
+    <div class="container-fluid">
+      <a class="navbar-brand text-3xl" href="./index.html" id="logoback">BETBOX</a>
+      <nav>
+
+
+          <span class="logged-in">
+            <span id="user-profile-name" class="display-name text-white"></span>
+          </span>
+      </nav>
+    </div>
+  </nav>
+  
+<!-- Gameplay -->
+<div class="w-screen h-screen backdrop-blur-xl bg-white/5">
+  <div class="popup-box">
+    <div class="popup-content">
+      <div class="popup-header">  
+        <h3>MiniGame</h3>
+        <!-- <span class="popup-close-btn">&times;</span> -->
+      </div>
+          <div class="popup-body ">
+            <div class="diceGame" id="DiceGame">
+              <div class="dice">
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+                <div class="face right"></div>
+                <div class="face left"></div>
+              </div>
+              <button class="roll" id="oddEvent">odd</button>
+              <button class="roll" id="evenEvent">even</button>
+            </div>
+            
+
+          <div class="HTGame text-center text-sm" id="HTGame"> HEAD TAIL
+            <div class="coin">
+              <div class="heads">
+                  <img src="./Minigame/image/Heads.svg" alt="">
+              </div>
+              <div class="tails">
+                  <img src="./Minigame/image/Tails.svg" alt="">
+              </div>
+            </div>
+            <div class="buttons">
+                <button id="pick-heads">
+                    Heads
+                </button>
+                <button id="pick-tails">
+                    Tails
+                </button>
+            </div>
+          </div>
+
+      </div>
+      <div class="popup-footer">
+        <!-- <button class="btn popup-close-btn">Odd</button>
+        <button class="btn popup-close-btn">Even</button> -->
+        
+      </div>
+    </div>
+  </div>
+  <h1 class="display-6 text-center text-blue-800 font-bold py-3" id="wait-play"><b>Waiting for player...</b></h1>
+
+  <div class="flex flex-row justify-between text-2xl font-bold w-screen p-4">
+    <p class="backdrop-blur-xl bg-white/60 p-3 rounded-lg justify-center items-center">
+      <input readonly type="text" class="form-control" id="inputPlayer-x" placeholder="Player X">
+      X coins left : <span id="x-coins">3500</span>
+      <br>
+      <button type="button" id="btnJoin-x" class="btn btn-primary btn-join text-blue-800">Join</button>
+      <button type="button" id="btnCancel-x" class="btn btn-secondary btn-cancel-join-game text-gray-800">Cancel</button>
+    </p>
+    <p class="backdrop-blur-xl bg-white/60 p-3 rounded-lg">
+      <input readonly type="text" class="form-control" id="inputPlayer-o" placeholder="Player O">
+      O coins left : <span id="o-coins">3500</span>
+      <br>
+      <button type="button" id="btnJoin-o" class="btn btn-primary btn-join text-blue-800">Join</button>
+      <button type="button" id="btnCancel-o" class="btn btn-secondary btn-cancel-join-game text-gray-800">Cancel</button>
+    </p>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" id="btnStartGame" class="btn btn-success mx-1 logged-in my-3 p-3 text-2xl">START GAME</button>
+  </div>
+  <div class="gameplay justify-center items-center flex my-3">
+    <div class="grid grid-cols-3 gap-4 justify-center items-center">
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="0" id="row-1-col-1"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="1" id="row-1-col-2"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="2" id="row-1-col-3"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="3" id="row-2-col-1"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="4" id="row-2-col-2"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="5" id="row-2-col-3"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="6" id="row-3-col-1"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="7" id="row-3-col-2"></button>
+      <button class="button-option backdrop-blur-xl bg-white/60" data-value="8" id="row-3-col-3"></button>
+    </div>
+  </div>
+
+  <!-- content game -->
+
+  
+</div>
+
+<div id="win-modal" tabindex="-1" aria-hidden="true"
+class="fixed z-50 overflow-x-hidden inset-0 justify-center h-auto flex items-center hidden">
+    <div class="relative w-full  max-w-md md:h-auto">
+      <div class="relative bg-white rounded-lg shadow w-auto">
+        <div class="px-4 py-6 lg:px-8">
+          <p class="mb-4 text-6xl font-bold text-blue-900 text-center">
+            Match over
+          </p>
+          <p class="mb-4 text-xl font-medium text-blue-900 text-center" id="playerwinner">
+          </p>
+          <div class="items-center justify-center flex">
+          <button  id="playagain-btn" class="w-32 py-1.5 relative rounded group font-medium text-white mb-2 mr-10">
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
+            <span
+              class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-900"></span>
+            <span class="relative text-base">Play again</span>
+          </button>
+          <a href="./index.html">
+          <button id="leave-btn" class="w-32 py-1.5 relative rounded group font-medium text-white mb-2 ">
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
+            <span
+              class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-900"></span>
+            <span class="relative text-base">Leave</span>
+          </button>
+        </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBmLQZF65Og_lqVzug50pp35eMs5XSPEeM",
+      authDomain: "betbox-project.firebaseapp.com",
+      databaseURL: "https://betbox-project-default-rtdb.firebaseio.com",
+      projectId: "betbox-project",
+      storageBucket: "betbox-project.appspot.com",
+      messagingSenderId: "634538483835",
+      appId: "1:634538483835:web:bda86d7f3746e41b2f42de",
+    };
+    firebase.initializeApp(firebaseConfig);
+    
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+
+  <script src="read_data.js"></script>
+  <script src="game.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+</body>
+
+</html>

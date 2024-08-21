@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <title>BETBOX</title>
+</head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
+
+  body {
+    font-family: 'Chakra Petch', sans-serif;
+    background: linear-gradient(-45deg, #db3f0f, #db1360, #14a2d6, #15e2b2);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+
+  .gradient-cir {
+    fill: url(#circle-gradient) #fff;
+  }
+
+  .gradient-cir2 {
+    fill: url(#circle-gradient2) #fff;
+  }
+
+  .gradient-cir3 {
+    fill: url(#circle-gradient3) #fff;
+  }
+
+  .gradient-x {
+    fill: url(#x-gradient) #fff;
+  }
+
+  .gradient-x2 {
+    fill: url(#x-gradient2) #fff;
+  }
+
+  .gradient-x3 {
+    fill: url(#x-gradient3) #fff;
+  }
+</style>
+
+<body class="overflow-hidden">
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 33%; top: 20%">
+    <defs>
+      <linearGradient id="circle-gradient" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#06f1b6" />
+        <stop offset="30%" stop-color="#06f1b6" />
+        <stop offset="100%" stop-color="#ffdf86" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 60%; top: 0%">
+    <defs>
+      <linearGradient id="circle-gradient2" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#FEBE35" />
+        <stop offset="30%" stop-color="#FEBE35" />
+        <stop offset="100%" stop-color="#FE3535" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir2" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="currentColor"
+    class="bi bi-circle motion-safe:animate-spin" viewBox="0 0 16 16" style="position: fixed; left: 81%; top: 64%">
+    <defs>
+      <linearGradient id="circle-gradient3" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#CCCCFF" />
+        <stop offset="30%" stop-color="#CCCCFF" />
+        <stop offset="100%" stop-color="#9FE2BF" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-cir3" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor"
+    class="bi bi-circle -rotate-3 motion-safe:animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: 62%; top: 50%">
+    <defs>
+      <linearGradient id="x-gradient" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#f106b6" />
+        <stop offset="30%" stop-color="#f106b6" />
+        <stop offset="100%" stop-color="#86c4ff" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="currentColor"
+    class="bi bi-circle rotate-12 animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: 32%; top: 70%">
+    <defs>
+      <linearGradient id="x-gradient2" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#F0FF00" />
+        <stop offset="30%" stop-color="#F0FF00" />
+        <stop offset="100%" stop-color="#35FEEC" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x2"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="currentColor"
+    class="bi bi-circle -rotate-12 animate-pulse" viewBox="0 0 16 16" style="position: fixed; left: -2%; top: 15%">
+    <defs>
+      <linearGradient id="x-gradient3" x2="0.35" y2="1">
+        <stop offset="0%" stop-color="#DE3163" />
+        <stop offset="30%" stop-color="#DE3163" />
+        <stop offset="100%" stop-color="#FF7F50" />
+      </linearGradient>
+    </defs>
+    <path class="gradient-x3"
+      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+  </svg>
+
+  <nav class="navbar sticky-top text-gray-900 uppercase backdrop-blur-xl bg-white/60 ...">
+    <div class="container-fluid">
+      <a class="navbar-brand text-3xl" href="#">BETBOX</a>
+      <nav>
+
+          <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-20 py-1.5 relative rounded group font-medium text-white mb-2">
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
+            <span
+              class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-900"></span>
+            <span class="relative text-base">Login</span>
+          </button>
+
+        <!-- <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" id="btnLogout" class="btn btn-outline-light">
+          <i class="bi bi-emoji-frown-fill"></i> Logout
+        </button> -->
+        
+        <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
+          class="text-blue-900 font-bold rounded-lg text-xl px-2 py-2.5 text-center inline-flex items-center justify-center"
+          type="button">
+          <i class="bi bi-gear-fill"></i>
+        </button>
+      </nav>
+    </div>
+  </nav>
+
+  <div id="dropdownToggle"
+    class="z-10 hidden backdrop-blur-xl bg-white/60 ... divide-y divide-gray-100 rounded-lg shadow w-72">
+    <ul class="p-3 space-y-1 text-sm text-gray-700 " aria-labelledby="dropdownToggleButton">
+      <li>
+        <div class="flex p-2 rounded">
+          <!-- <label class="relative inline-flex items-center w-full cursor-pointer">
+            <input type="checkbox" value="" class="sr-only peer" />
+            <div
+              class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+            </div>
+            <span class="ml-3 text-sm font-medium text-gray-900">Dark mode</span>
+          </label>
+        </div> -->
+      </li>
+    </ul>
+  </div>
+
+  <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full max-w-md md:h-auto">
+
+      <div class="relative bg-white rounded-lg shadow">
+        <button type="button"
+          class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          data-modal-hide="authentication-modal">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="px-6 py-6 lg:px-8">
+          <h3 class="mb-4 text-xl font-medium text-blue-900">
+            Sign in
+          </h3>
+          <form class="space-y-6" action="#">
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-blue-900 ">Your email</label>
+              <input type="email" name="email" id="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+                placeholder="Enter your email address" required />
+            </div>
+            <div>
+              <label for="password" class="block mb-2 text-sm font-medium text-blue-900 ">Your
+                password</label>
+              <input type="password" name="password" id="password" placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+                required />
+            </div>
+            <div class="flex justify-between"></div>
+            <button type="submit"
+              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              Login to your account
+            </button>
+            <div class="font-medium text-gray-500">
+              Not registered?
+              <a href="#" class="text-blue-700 hover:underline">Create account</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+  <div class="relative w-full h-full max-w-md md:h-auto"> -->
+
+    <!-- <div class="relative bg-white rounded-lg shadow">
+      <button type="button"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+        data-modal-hide="authentication-modal">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8">
+        <h3 class="mb-4 text-xl font-medium text-blue-900">
+          Create account
+        </h3>
+        <form class="space-y-6" action="#">
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-blue-900 ">Your username</label>
+            <input type="email" name="email" id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+              placeholder="Enter your username" required />
+          </div>
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-blue-900 ">Your email</label>
+            <input type="email" name="email" id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+              placeholder="Enter your email address" required />
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-blue-900 ">Your
+              password</label>
+            <input type="password" name="password" id="password" placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+              required />
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-blue-900 ">Confirm
+              password</label>
+            <input type="password" name="password" id="password" placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+              required />
+          </div>
+          <div class="flex justify-between"></div>
+          <button type="submit"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+  <div class="justify-center items-center flex">
+    <div
+      class="max-w-6xl max-h-screen px-4 pt-4 pb-8 backdrop-blur-sm bg-white/30 rounded-lg shadow items-center justify-center mt-10 md:max-w-xl">
+      <div class="items-center justify-between w-auto">
+        
+        <div class="items-center justify-between w-auto">
+          <a href="./index.html">
+            <button
+          class="text-blue-900 font-bold rounded-lg text-xl px-2 py-2.5 text-center inline-flex items-center justify-center"
+          type="button">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+      </a>
+          <p class="text-5xl font-bold text-blue-900 text-center ">
+            Lobby
+          </p>
+          <br />
+          <div class="relative">
+            <table class="text-xs text-center text-gray-500 sm:text-xl sm:table-auto" id="user-table">
+              <thead class="text-blue-900 uppercase backdrop-blur-xl bg-white/40 ...">
+                <tr>
+                  <th scope="col" class="sm:px-8 px-4 py-2">Lobby name</th>
+                  <th scope="col" class="sm:px-8 px-4 py-2">Player</th>
+                  <th scope="col" class="sm:px-8 px-4 py-2">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="font-medium text-gray-900 backdrop-blur-md bg-white/10 ... hover:bg-white/50 cursor-pointer">
+                  <td class="px-5 py-4 font-medium text-blue-900 whitespace-nowrap" id="">
+                    <a href="./Game.html">ADMIN1's lobby</a>
+                  </td>
+                  <td class="sm:px-8 px-4 py-2 text-blue-900">1/2</td>
+                  <td class="sm:px-8 px-4 py-2 text-blue-900">Waiting</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="flow-root"></div>
+  </div>
+
+  <script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAkvzj_2L88VIimGsEV22f0mHU6q_86JM8",
+      authDomain: "web-design-javascript-la-b2686.firebaseapp.com",
+      databaseURL:
+        "https://web-design-javascript-la-b2686-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "web-design-javascript-la-b2686",
+      storageBucket: "web-design-javascript-la-b2686.appspot.com",
+      messagingSenderId: "674474825780",
+      appId: "1:674474825780:web:fcdd85cef3b37a0916d261",
+      measurementId: "G-6PB8PT6HEP",
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <script src="insert_data.js"></script>
+  <script src="read_data.js"></script>
+  <script src="auth.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+
+  <script>
+    const usernameHeader = document.querySelector('#user-table th');
+
+firebase.database().ref('usernames').on('child_added', (snapshot) => {
+  const username = snapshot.val().username;
+
+  // Add the username to the table header
+  usernameHeader.appendChild(document.createTextNode(`, ${username}`));
+});
+  </script>
+</body>
+
+</html>
